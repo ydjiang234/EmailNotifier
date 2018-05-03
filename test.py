@@ -1,6 +1,7 @@
 from UnreadChecker import UnreadChecker
 import time
 import numpy as np
+import threading
 
 def DictReader(path):
     f = open(path)
@@ -35,6 +36,9 @@ def ReadAllEmail():
     else:
         return 'No Mail'
 
-print(ReadAllEmail())
+def RepeatCheck():
+    threading.Timer(60.0, RepeatCheck).start()
+    print(ReadEmail())
 
+RepeatCheck()
 
