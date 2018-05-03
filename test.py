@@ -1,4 +1,6 @@
 from UnreadChecker import UnreadChecker
+from tkinter import Tk, Label, Button
+from InfoWindow import InfoWindow
 import time
 import numpy as np
 import threading
@@ -32,13 +34,24 @@ def ReadAllEmail():
         if temp != None:
             outputs.append(temp)
     if len(outputs) != 0:
-        return ''.join(outputs)
+        output =  ''.join(outputs)
+        return output
     else:
-        return 'No Mail'
+        return None
 
 def RepeatCheck():
-    threading.Timer(60.0, RepeatCheck).start()
-    print(ReadEmail())
+    threading.Timer(30.0, RepeatCheck).start()
+    out = ReadAllEmail()
+    if out!=None:
+        if 'root' not in globals():
+            global root
+            root = Tk()
+            iw = InfoWindow(root, out)
+            root.mainloop()
+        else:
+            pass
+    else:
+        curTime = time.localtime()
+        print('{0}-{1}-{2}, {3}:{4} -- No new Email.'.format(curTime[0], curTime[1], curTime[2], curTime[3], curTime[4]))
 
 RepeatCheck()
-
