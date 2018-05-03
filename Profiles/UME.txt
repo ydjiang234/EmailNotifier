@@ -1,0 +1,5 @@
+EmailName:UME
+host:imap.gmail.com
+port:993
+user:yadong.jiang@umeschool.it
+pw:1b936d43160d290550140b6c896a159a2f7c266e2d0f

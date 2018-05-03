@@ -1,0 +1,5 @@
+EmailName:FEUP
+host:imap.fe.up.pt
+port:993
+user:yjiang
+pw:1938553f673436231a016309460e317463166a0d404b
