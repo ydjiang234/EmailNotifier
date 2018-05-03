@@ -41,16 +41,19 @@ class UnreadChecker:
                 fromList.append(msg['From'])
             return fromList, subjectList
         else:
-            return ["There is no"], ["new Email :)"] 
+            return [], [] 
         
     def RenderOutput(self):
         spliter = '#############'
         fromList, subjectList = self.UnreadList()
-        output = spliter + '\n'
-        output = output + '#' + self.EmailName + ':\n'
-        for i in range(len(fromList)):
-            output = output + '#' + fromList[i] + ': ' + subjectList[i],'big5' + '.\n'
-        output = output + spliter + '\n'
+        if len(fromList) != 0:
+            output = spliter + '\n'
+            output = output + '#' + self.EmailName + ':\n'
+            for i in range(len(fromList)):
+                output = output + '#' + fromList[i] + ': ' + subjectList[i] + '.\n'
+            output = output + spliter + '\n'
+        else:
+            output = None
         return output
         
         

@@ -1,29 +1,40 @@
 from UnreadChecker import UnreadChecker
-'''
-EmailName = 'FEUP'
-host='imap.fe.up.pt'
-port=993
-user = 'yjiang'
-pw = 'Iao901011'
-a = UnreadChecker(EmailName, host, port, user, pw)
-a.login()
-a.setBox('INBOX')
-out = a.RenderOutput()
-print(out)
-a.logout()
-'''
-f = open('Profiles/163.txt')
-content = f.read()
-f.close()
-contents = content.split('\n')
-dict1 = {}
-for item in contents:
-    temp = item.split(':')
-    dict1[temp[0]] = temp[1]
+import time
+import numpy as np
 
-b = UnreadChecker(dict1['EmailName'], dict1['host'], dict1['port'], dict1['user'], dict1['pw'])
-b.login()
-b.setBox('INBOX')
-out = b.RenderOutput()
-print(out)
-b.logout()
+def DictReader(path):
+    f = open(path)
+    contents = f.read().split('\n')
+    f.close()
+    EmailDict = {}
+    for item in contents:
+        temp = item.split(':')
+        if len(temp) == 2:
+            EmailDict[temp[0]] = temp[1]
+    return EmailDict
+
+def ReadEmail(EmailDict, boxName = 'INBOX'):
+    checker = UnreadChecker(EmailDict['EmailName'], EmailDict['host'], EmailDict['port'], EmailDict['user'], EmailDict['pw'])
+    checker.login()
+    checker.setBox(boxName)
+    out = checker.RenderOutput()
+    checker.logout()
+    return out
+
+def ReadAllEmail():
+    EmailNames = np.loadtxt('Profiles/EmailList.txt', dtype=str)
+    outputs = []
+    for i in range(len(EmailNames)):
+        EmailName = EmailNames[i]
+        EmailDict = DictReader('Profiles/' + EmailName + '.txt')
+        temp = ReadEmail(EmailDict)
+        if temp != None:
+            outputs.append(temp)
+    if len(outputs) != 0:
+        return ''.join(outputs)
+    else:
+        return 'No Mail'
+
+print(ReadAllEmail())
+
+

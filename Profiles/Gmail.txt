@@ -1,0 +1,5 @@
+EmailName:Gmail
+host:imap.gmail.com
+port:993
+user:ydjiang234
+pw:1235434d9e9f646401073f4b93533140432c1b24445b0997878e25
