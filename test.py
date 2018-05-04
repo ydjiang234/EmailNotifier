@@ -41,16 +41,21 @@ def ReadAllEmail():
 
 def RepeatCheck():
     out = ReadAllEmail()
-    if out!=None:
-        '''
-        root = Tk()
-        iw = InfoWindow(root, out)
-        root.mainloop()
-        '''
-        print(out)
-    else:
-        curTime = time.localtime()
-        print('{0}-{1}-{2}, {3}:{4} -- No new Email.'.format(curTime[0], curTime[1], curTime[2], curTime[3], curTime[4]))
-    threading.Timer(600.0, RepeatCheck).start()
+    while True:
+        if out!=None:
+            '''
+            if 'root' not in globals():
+                global root
+                root = Tk()
+                iw = InfoWindow(root, out)
+                root.mainloop()
+            '''
+            print(out)
+        else:
+            curTime = time.localtime()
+            print('{0}-{1}-{2}, {3}:{4} -- No new Email.'.format(curTime[0], curTime[1], curTime[2], curTime[3], curTime[4]))
+        #threading.Timer(20.0, RepeatCheck).start()
+        time.sleep(600.0)
+        out = ReadAllEmail()
 
 RepeatCheck()
