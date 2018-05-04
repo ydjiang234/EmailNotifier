@@ -39,17 +39,17 @@ def ReadAllEmail():
     else:
         return None
 
+def showNotification(msg):
+    root = Tk()
+    iw = InfoWindow(root, msg)
+    root.mainloop()
+
 def RepeatCheck():
     out = ReadAllEmail()
     while True:
         if out!=None:
-            '''
-            if 'root' not in globals():
-                global root
-                root = Tk()
-                iw = InfoWindow(root, out)
-                root.mainloop()
-            '''
+            #t2 = threading.Thread(target=showNotification, name="InfoWindow", args=(out,))
+            #t2.run()
             print(out)
         else:
             curTime = time.localtime()
@@ -57,5 +57,7 @@ def RepeatCheck():
         #threading.Timer(20.0, RepeatCheck).start()
         time.sleep(600.0)
         out = ReadAllEmail()
-
-RepeatCheck()
+t1 = threading.Thread(target=RepeatCheck, name="Checker")
+global t2
+t2 = threading.Thread(target=showNotification, name="InfoWindow")
+t1.run()
