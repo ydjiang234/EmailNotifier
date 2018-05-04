@@ -55,7 +55,7 @@ def RepeatCheck():
             curTime = time.localtime()
             print('{0}-{1}-{2}, {3}:{4} -- No new Email.'.format(curTime[0], curTime[1], curTime[2], curTime[3], curTime[4]))
         #threading.Timer(20.0, RepeatCheck).start()
-        time.sleep(600.0)
+        time.sleep(1800.0)
         out = ReadAllEmail()
 t1 = threading.Thread(target=RepeatCheck, name="Checker")
 global t2
